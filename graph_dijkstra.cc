@@ -53,6 +53,61 @@ void print(int distance[], int n, int spanningTree[])
 	printf("\n");
 }
 
+// Funtion that implements Dijkstra's algorithm for a graph represented 
+// using an adjacency matrix 
+void dijkstraAlgorithm(int graph[Verticies][Verticies], int start)
+{
+	// distance[] will hold the shortest distance[i] from start to i
+	int distance[Verticies]; 
+
+	// spanningSet[i] will be true if vertex i is included in the spanning tree
+	bool spanningSet[Verticies];
+
+	// spanningTree array to store shortest path tree
+	int spanningTree[Verticies];
+
+	// Initialize all distances as infinite (INT_MAX) and spanningSet[] as false
+	for (int i = 0; i < Verticies; i++)
+	{
+		// initialize to a vertex value not in the graph to start from
+		spanningTree[0] = -1;
+		distance[i] = INT_MAX;
+		spanningSet[i] = false;
+	}
+
+	// Distance of source vertex from itself is always 0
+	distance[start] = 0;
+
+	// Find shortest path for all vertices
+	for (int count = 0; count < Verticies - 1; count++)
+	{
+		// Pick the minimum distance vertex from the set of
+		// vertices not yet visted. u is always equal to start
+		// in first iteration.
+		int u = minimumDistance(distance, spanningSet);
+
+		// Mark the picked vertex as visited
+		spanningSet[u] = true;
+
+		// Update distance value of the adjacent vertices of the picked vertex.
+		for (int vertex = 0; vertex < Verticies; vertex++)
+		{
+			// Update distance[vertex] only if is not in spanningSet, there is
+			// an edge from u to vertex, and total weight of path from
+			// start to vertex through u is smaller than current value of
+			// distance[vertex]
+			if (!spanningSet[vertex] && graph[u][vertex] && distance[u] + graph[u][vertex] < distance[vertex])
+			{
+				spanningTree[vertex] = u;
+				distance[vertex] = distance[u] + graph[u][vertex];
+			} 
+		}
+	}
+
+	// print the distance values array
+	print(distance, Verticies, spanningTree);
+}
+
 int main()
 {
 	
@@ -71,6 +126,8 @@ int main()
 					{0, 0, 0, 0, 0, 0, 5, 0, 17, 0, 29, 0, 0},
 					{0, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0, 0, 0}};
 
-	
+	// pass dijkstraAlgorithm the graph and starting point
+	dijkstraAlgorithm(graph, 0);
+
 	return 0;
 }
