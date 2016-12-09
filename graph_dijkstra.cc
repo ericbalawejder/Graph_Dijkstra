@@ -27,6 +27,19 @@ int minimumDistance(int distance[], bool spanningSet[])
 	return minimum_index;
 }
 
+// Function to print shortest path from source to destination using spanningTree array
+void printSpanningTree(int spanningTree[], int vertex)
+{
+	// Base Case, vertex is starting point
+	if (spanningTree[vertex] == -1)
+	{
+		return;
+	}
+	printSpanningTree(spanningTree, spanningTree[vertex]);
+	// print the path
+	printf("-> %d ", vertex);
+}
+
 // A function to print the distance array
 void print(int distance[], int n, int spanningTree[])
 {
@@ -34,7 +47,8 @@ void print(int distance[], int n, int spanningTree[])
 	printf("Vertex\t   Distance\tPath");
 	for (int i = 1; i < Verticies; i++)
 	{
-		printf("\n%d --> %d %8d ", start, i, distance[i]);
+		printf("\n%d --> %d %8d %8d ", start, i, distance[i], start);
+		printSpanningTree(spanningTree, i);
 	}
 	printf("\n");
 }
