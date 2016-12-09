@@ -27,6 +27,18 @@ int minimumDistance(int distance[], bool spanningSet[])
 	return minimum_index;
 }
 
+// A function to print the distance array
+void print(int distance[], int n, int spanningTree[])
+{
+	int start = 0;
+	printf("Vertex\t   Distance\tPath");
+	for (int i = 1; i < Verticies; i++)
+	{
+		printf("\n%d --> %d %8d ", start, i, distance[i]);
+	}
+	printf("\n");
+}
+
 int main()
 {
 	
