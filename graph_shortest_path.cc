@@ -44,13 +44,14 @@ void printSpanningTree(int spanningTree[], int vertex)
 void print(int distance[], int n, int spanningTree[])
 {
 	int start = 0;
-	printf("Vertex\t   Distance\tPath");
+	printf("\nVertex\t   Distance\tPath");
 	for (int i = 1; i < Vertices; i++)
 	{
 		printf("\n%d --> %d %8d %8d ", start, i, distance[i], start);
 		printSpanningTree(spanningTree, i);
+		printf("\n---------------------------------------------------------");
 	}
-	printf("\n");
+	printf("\n\n");
 }
 
 // Funtion that implements Dijkstra's algorithm for a graph represented 
